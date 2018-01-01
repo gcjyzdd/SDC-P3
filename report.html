@@ -59,7 +59,7 @@
 <p>My first step was to use a convolution neural network model similar to the <a href="https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/">nvidia deep cnn</a> I thought this model might be appropriate because nvidia adoppted it for real autonomous driving.</p>
 <p>In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. </p>
 <p>To combat the overfitting, I modified the model so that there is a dropout layer after some deep convolutional layers and fully connceted layers.</p>
-<p>Then I subsampled the dataset, <em>i.e.,</em>, using a subset of original dataset. In details, I used every 6th image of the original image data set, because several images that are continous contain similar information. This subsampling method can also reduce training time.</p>
+<p>Then I <strong>subsampled the dataset</strong>, <em>i.e.,</em>, using a subset of original dataset. In details, I used every 6th image of the original image data set, because several images that are continous contain similar information. This subsampling method can also reduce training time.</p>
 <p>The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, I recorded more data:</p>
 <pre><code>* two counter clockwise laps and one clockwise lap of center lane driving
 * one lap of recovery driving from the sides

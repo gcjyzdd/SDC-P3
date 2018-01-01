@@ -91,7 +91,7 @@ In order to gauge how well the model was working, I split my image and steering 
 
 To combat the overfitting, I modified the model so that there is a dropout layer after some deep convolutional layers and fully connceted layers.
 
-Then I subsampled the dataset, _i.e.,_, using a subset of original dataset. In details, I used every 6th image of the original image data set, because several images that are continous contain similar information. This subsampling method can also reduce training time.
+Then I **subsampled the dataset**, _i.e.,_, using a subset of original dataset. In details, I used every 6th image of the original image data set, because several images that are continous contain similar information. This subsampling method can also reduce training time.
 
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, I recorded more data:
 
