@@ -5,11 +5,11 @@ import numpy as np
 
 
 samples = []
-with open('../Data/train_sim/driving_log.csv') as csvfile:
+with open('../Data/train_sim2/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     index = 0
     for line in reader:
-        if index % 2 == 0:
+        if index % 6 == 0:
             samples.append(line)
         index += 1
 
@@ -84,7 +84,9 @@ model.add(Convolution2D(64,3,3, subsample=(1,1), activation='relu'))
 model.add(Dropout(0.5))
 model.add(Flatten())
 model.add(Dense(100))
+model.add(Dropout(0.5))
 model.add(Dense(50))
+model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
 
