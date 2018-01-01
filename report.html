@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="ReText 5.3.1">
+</head>
+<body>
+<h1><strong>Behavioral Cloning</strong></h1>
+<h2>Self-Driving-Car Project3</h2>
+<hr>
+<p><strong>Behavioral Cloning Project</strong></p>
+<p>The goals / steps of this project are the following:</p>
+<ul>
+<li>Use the simulator to collect data of good driving behavior</li>
+<li>Build, a convolution neural network in Keras that predicts steering angles from images</li>
+<li>Train and validate the model with a training and validation set</li>
+<li>Test that the model successfully drives around track one without leaving the road</li>
+<li>Summarize the results with a written report</li>
+</ul>
+<h2>Rubric Points</h2>
+<h3>Here I will consider the <a href="https://review.udacity.com/#!/rubrics/432/view">rubric points</a> individually and describe how I addressed each point in my implementation.</h3>
+<hr>
+<h3>Files Submitted &amp; Code Quality</h3>
+<h4>1. Submission includes all required files and can be used to run the simulator in autonomous mode</h4>
+<p>My project includes the following files:</p>
+<ul>
+<li>deep_cnn_generator.py containing the script to create and train the model</li>
+<li>deep_cnn_generator.ipynb containing the visualization of loss</li>
+<li>deep_cnn_generator.html containing the html format of the ipynb code</li>
+<li>drive.py for driving the car in autonomous mode</li>
+<li>gen_video.sh for creating videos from images using <code>ffmpeg</code></li>
+<li>data.mp4 the video of training data</li>
+<li>run2.mp4 the recorded video of autonomous mode</li>
+<li>model_deep_cnn_submitted.h5 containing a trained convolution neural network </li>
+<li>report.md or report.html summarizing the results. I can view the videos in this md file using <code>retext</code> but github cannot display videos. You could watch the videos using the html file or just open videos using a media plyer.</li>
+</ul>
+<h4>2. Submission includes functional code</h4>
+<p>Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing</p>
+<pre><code class="sh">python drive.py model_deep_cnn_submitted.h5
+</code></pre>
+
+<h4>3. Submission code is usable and readable</h4>
+<p>The deep_cnn_generator.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.</p>
+<h3>Model Architecture and Training Strategy</h3>
+<h4>1. An appropriate model architecture has been employed</h4>
+<p>My model consists of a convolution neural network with 5x5 or 3x3 filter sizes and depths between 24 and 64 (deep_cnn_generator.py lines 77-83) </p>
+<p>The model includes RELU layers to introduce nonlinearity (code line 77-83), and the data is normalized in the model using a Keras lambda layer (code line 75). </p>
+<h4>2. Attempts to reduce overfitting in the model</h4>
+<p>The model contains dropout layers in order to reduce overfitting (model.py lines 80, 82, 84, 87, 89). </p>
+<p>The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 94-96). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.</p>
+<h4>3. Model parameter tuning</h4>
+<p>The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).</p>
+<h4>4. Appropriate training data</h4>
+<p>Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. I also flipped left right of all images to augment the data set.</p>
+<p>For details about how I created the training data, see the next section.</p>
+<h3>Model Architecture and Training Strategy</h3>
+<h4>1. Solution Design Approach</h4>
+<p>The overall strategy for deriving a model architecture was to ...</p>
+<p>My first step was to use a convolution neural network model similar to the <a href="https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/">nvidia deep cnn</a> I thought this model might be appropriate because nvidia adoppted it for real autonomous driving.</p>
+<p>In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. </p>
+<p>To combat the overfitting, I modified the model so that there is a dropout layer after some deep convolutional layers and fully connceted layers.</p>
+<p>Then I subsampled the dataset, <em>i.e.,</em>, using a subset of original dataset. In details, I used every 6th image of the original image data set, because several images that are continous contain similar information. This subsampling method can also reduce training time.</p>
+<p>The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. To improve the driving behavior in these cases, I recorded more data:</p>
+<pre><code>* two counter clockwise laps and one clockwise lap of center lane driving
+* one lap of recovery driving from the sides
+* one lap focusing on driving smoothly around curves
+</code></pre>
+<p>At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.</p>
+<h4>2. Final Model Architecture</h4>
+<p>The final model architecture (deep_cnn_generator.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:</p>
+<table>
+<thead>
+<tr>
+<th align="center">layer</th>
+<th align="center">sizes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">lambda</td>
+<td align="center">3, 120*360</td>
+</tr>
+<tr>
+<td align="center">cropping2d</td>
+<td align="center">(70,25),(0,0)</td>
+</tr>
+<tr>
+<td align="center">Conv2D</td>
+<td align="center">24, 5x5</td>
+</tr>
+<tr>
+<td align="center">Conv2D</td>
+<td align="center">36, 5x5</td>
+</tr>
+<tr>
+<td align="center">Conv2D</td>
+<td align="center">48, 5x5</td>
+</tr>
+<tr>
+<td align="center">Dropout</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Conv2D</td>
+<td align="center">64, 3x3</td>
+</tr>
+<tr>
+<td align="center">Dropout</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Conv2D</td>
+<td align="center">64, 3x3</td>
+</tr>
+<tr>
+<td align="center">Dropout</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Flatten</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FullyConnected</td>
+<td align="center">100</td>
+</tr>
+<tr>
+<td align="center">Dropout</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FullyConnected</td>
+<td align="center">50</td>
+</tr>
+<tr>
+<td align="center">Dropout</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FullyConnected</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">FullyConnected</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<h4>3. Creation of the Training Set &amp; Training Process</h4>
+<p>To capture good driving behavior, I recorded:</p>
+<pre><code>* one counter clockwise lap of center lane driving
+* one clockwise lap of center lane driving
+* driving from right side to center
+* driving from left side to center
+* driving smooth turns
+* one counter clockwise lap of center lane driving
+</code></pre>
+<p>I created a video using <code>ffmpeg</code> from recorded centering images. Here is the video:
+<div style="text-align:center"><video width="400" controls><source src ="./data.mp4" | absolute_url}}' />Your browser does not support HTML5 video.</video></div></p>
+<p>After the collection process, I had 9633(x6 using 3 cameras and flipping left right) of data points. I then preprocessed this data by normalization, mean centering, and cropping top environments and bottom car hoods.</p>
+<p>I finally randomly shuffled the data set and put 20% of the data into a validation set. </p>
+<p>I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the fact that validation loss was larger than training loss after epoch 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.</p>
+<p>The following is the recorded result:</p>
+<div style="text-align:center"><video width="400" controls><source src ="./run2.mp4" | absolute_url}}' />Your browser does not support HTML5 video.</video></div>
+</body>
+</html>
