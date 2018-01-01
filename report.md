@@ -147,7 +147,7 @@ After the collection process, I had 9633(x6 using 3 cameras and flipping left ri
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the fact that validation loss was larger than training loss after epoch 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the fact that the validation loss increased after epoch 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
 The following is the recorded result:
 

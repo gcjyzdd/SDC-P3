@@ -159,7 +159,7 @@
 <div style="text-align:center"><video width="400" controls><source src ="./data.mp4" | absolute_url}}' />Your browser does not support HTML5 video.</video></div></p>
 <p>After the collection process, I had 9633(x6 using 3 cameras and flipping left right) of data points. I then preprocessed this data by normalization, mean centering, and cropping top environments and bottom car hoods.</p>
 <p>I finally randomly shuffled the data set and put 20% of the data into a validation set. </p>
-<p>I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the fact that validation loss was larger than training loss after epoch 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.</p>
+<p>I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the fact that the validation loss increased after epoch 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.</p>
 <p>The following is the recorded result:</p>
 <div style="text-align:center"><video width="400" controls><source src ="./run2.mp4" | absolute_url}}' />Your browser does not support HTML5 video.</video></div>
 </body>
