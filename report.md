@@ -83,7 +83,7 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to use the deep neural network to drive the vehicle as well as the user's input data.
 
 My first step was to use a convolution neural network model similar to the [nvidia deep cnn](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) I thought this model might be appropriate because nvidia adoppted it for real autonomous driving.
 
